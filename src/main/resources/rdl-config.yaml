@@ -1,0 +1,57 @@
+version: 1.0.1
+
+#kafka consumer configuration
+kafka:
+  #broker host:ip (default=localhost:9092)
+  bootstrapserver: "192.168.89.226:9092"
+  #topics list (default=test)
+  topics:
+    - "transformer"
+  #autocommit (default=true)
+  autocommit: true
+  #records (default=10000000)
+  records: 10000000
+  #groupID (default=group_1)
+  groupID: "rdl_dev_group1"
+  #commitInterval (default=100)
+  commitInterval: 100
+  #poolTimeout (default=1000)
+  poolTimeout: 1000
+
+#cassandra mapper configuration
+cassandra:
+  #tableCounters (default=selfnet_counters)
+  tableCounters:    "selfnet_counters"
+  #tableEvents (default=selfnet_events)
+  tableEvents:    "selfnet_events"
+  #keyspace (default=selfnet)
+  keyspace: "selfnet"
+  #user (default=selfnet)
+  user:     "selfnet"
+  #password (default=selfnet)
+  password: "selfnet"
+  #host (default=localhost)
+  host:     "192.168.89.225"
+  #port (default=9042)
+  port:     "9042"
+
+#raw data loader configuration
+rdl:
+  #threads join timeout (default=1000)
+  jointimeout:  1000
+  #async boolean flag indicates if cassandra db insertions are async or not (default=true)
+  async:        true
+  #activates debugging mode (default=true)
+  debug:        true
+  #rdl-collector configuration
+  collector:
+    #threads polling period (default=5)
+    pollingtime: 5
+    #num of threads (default=1)
+    threads:     4
+  #rdl-collector configuration
+  persister:
+    #threads polling period (default=100)
+    pollingtime: 100
+    #num of threads (default=1)
+    threads:     1

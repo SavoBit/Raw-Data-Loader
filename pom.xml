@@ -1,0 +1,132 @@
+<project>
+    <groupId>pt.ptinovacao.selfnet</groupId>    
+    <artifactId>selfnet-aggregation-rdl</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>SELFNET - Aggregation Raw Data Loader</name>
+    <packaging>jar</packaging>
+    <version>1.0.1</version>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>Rui Filipe Pedro</id>
+            <name>Rui Filipe Pedro</name>
+            <email>rui-d-pedro@alticelabs.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <!-- MAVEN compiler plugins -->
+        <maven.version>3.3.3</maven.version>
+        <version.maven.min>3.3.3</version.maven.min>
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-war-plugin>2.3</maven-war-plugin>
+        <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
+
+        <!-- JAVA -->
+        <java.version>1.8</java.version>
+        <java.source.level>${java.version}</java.source.level>
+        <java.target.level>${java.version}</java.target.level>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- KAFKA ## Make sure the server version matches ## -->
+        <kafka.version>0.10.2.0</kafka.version>
+        <kafka.clients.version>0.10.2.0</kafka.clients.version>
+
+        <!--APACHE COMMONS CLI-->
+        <commons-cli.version>1.3.1</commons-cli.version>
+    </properties>
+
+    <dependencies>
+        <!-- KAFKA -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka.clients.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--CASSANDRA-->
+        <!--driver-->
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>3.1.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--mapper-->
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-mapping</artifactId>
+            <version>3.1.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--FASTERXML-->
+        <!--uuid generator-->
+        <dependency>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <version>3.1.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--GOOGLE-->
+        <!--gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--SNAKEYAML-->
+        <!--yaml parser-->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.18</version>
+        </dependency>
+
+        <!--Apache Commons CLI-->
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>${commons-cli.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven-shade-plugin.version}</version>
+                <configuration>
+                    <!--<minimizeJar>true</minimizeJar>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!-- Jar file entry point -->
+                            <mainClass>pt.ptinovacao.selfnet.aggregation.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
